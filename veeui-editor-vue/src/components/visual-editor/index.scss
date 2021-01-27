@@ -1,0 +1,72 @@
+$headSize: 60px;
+$menuSize: 275px;
+$operatorSize: 275px;
+
+$ibc: #dcdfe6;
+$ibl: #ebeef5;
+$itc: #314659;
+$icc: rgba(0, 0, 0, .45);
+$boxShadowColor: #f0f1f2;
+
+$primary: #e7218f;
+
+.visual-editor {
+    position: fixed;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background-color: white;
+
+    &:before {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,.1);
+        content:''
+    }
+
+    & > .visual-editor-menu {
+        position: absolute;
+        width: $menuSize;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: white;
+    }
+
+    & > .visual-editor-head {
+        position: absolute;
+        height: $headSize;
+        top: 0;
+        left: $menuSize;
+        right: $operatorSize;;
+        background-color: white;
+    }
+
+    & > .visual-editor-operator {
+        position: absolute;
+        width: $menuSize;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background-color: white;
+    }
+
+    & > .visual-editor-body {
+        padding-top: $headSize;
+        padding-left: $menuSize;
+        padding-right: $operatorSize;
+        box-sizing: border-box;
+        background-color: skyblue;
+        height: 100%;
+
+        & > .visual-editor-content {
+            height: 100%;
+            width: 100%;
+            overflow: scroll;
+        }
+    }
+}
