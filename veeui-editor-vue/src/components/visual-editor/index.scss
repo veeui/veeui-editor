@@ -43,7 +43,7 @@ $primary: #e7218f;
         top: 0;
         left: $menuSize;
         right: $operatorSize;;
-        background-color: white;
+        // background-color: white;
     }
 
     & > .visual-editor-operator {
@@ -60,13 +60,24 @@ $primary: #e7218f;
         padding-left: $menuSize;
         padding-right: $operatorSize;
         box-sizing: border-box;
-        background-color: skyblue;
+        background-color: rgba(white, .5);
         height: 100%;
+        position: relative;
+        z-index: 1;
 
         & > .visual-editor-content {
             height: 100%;
             width: 100%;
-            overflow: scroll;
+            display: flex;
+            justify-content: center;
+            overflow-y: scroll;
+
+            & > .visual-editor-container {
+                background-color: white;
+                position: relative;
+                flex-shrink: 0;
+                flex-grow: 0;
+            }
         }
     }
 }
