@@ -10,3 +10,10 @@ export interface VisualEditorModelValue {
     },
     blocks: VisualEditorBlockData[]
 }
+
+export interface VisualEditorComponent {
+    key: string,
+    label: string,
+    preview: () => JSX.Element,
+    render: () => JSX.Element
+}

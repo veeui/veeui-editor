@@ -1,12 +1,12 @@
 <template>
   <div>
-    <VisualEditor v-model="jsonData"/>
+    <VisualEditor v-model="jsonData" :config="VisualEditorConfig"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { VisualEditor } from './components'
+import { VisualEditor, VisualEditorConfig } from './components'
 
 export default defineComponent({
   name: 'App',
@@ -15,6 +15,7 @@ export default defineComponent({
   },
   data() {
     return {
+      VisualEditorConfig,
       jsonData: {
         container: {
           height: 500,

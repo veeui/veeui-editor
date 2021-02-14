@@ -35,6 +35,47 @@ $primary: #e7218f;
         left: 0;
         bottom: 0;
         background-color: white;
+        z-index: 9;
+
+        .visual-editor-menu-item {
+            position: relative;
+            width: calc(100% - 20px);
+            margin-left: 10px;
+            border: 2px dashed $ibl;
+            margin-top: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+
+            &:after {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                content: '';
+                z-index: 2;
+            }
+
+            &:hover {
+                border-color: $primary;
+                cursor: move;
+            }
+
+            &-label {
+                position: absolute;
+                left: -2px;
+                top: -2px;
+                background-color: $primary;
+                color: white;
+                padding: 4px 8px;
+                font-size: 12px;
+                z-index: 1;
+            }
+        }
     }
 
     & > .visual-editor-head {
@@ -53,6 +94,7 @@ $primary: #e7218f;
         bottom: 0;
         right: 0;
         background-color: white;
+        z-index: 9;
     }
 
     & > .visual-editor-body {
