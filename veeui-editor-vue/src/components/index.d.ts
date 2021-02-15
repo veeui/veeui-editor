@@ -1,7 +1,8 @@
 export interface VisualEditorBlockData {
     top: number,
     left: number,
-    componentKey: string
+    componentKey: string,
+    focus: boolean
 }
 
 export interface VisualEditorModelValue {

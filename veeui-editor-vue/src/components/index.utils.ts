@@ -1,4 +1,4 @@
-import { VisualEditorComponent } from './index.d'
+import { VisualEditorBlockData, VisualEditorComponent } from './index.d'
 
 export const createVisualConfig = () => {
     const componentList: VisualEditorComponent[] = [];
@@ -15,3 +15,24 @@ export const createVisualConfig = () => {
 }
 
 export type VisualConfig = ReturnType<typeof createVisualConfig>
+
+export const createVisualBlock = (
+    {
+        component,
+        left,
+        top
+    } : {
+        component: VisualEditorComponent,
+        left: number,
+        top: number
+    }
+): VisualEditorBlockData => {
+    return {
+        top,
+        left,
+        componentKey: component!.key,
+        focus: false
+    }
+};
+
+export type VisualBlock = ReturnType<typeof createVisualBlock>;

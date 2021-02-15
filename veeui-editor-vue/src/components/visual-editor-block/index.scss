@@ -1,3 +1,20 @@
+@import '../index.scss';
+
 .visual-editor-block {
     position: absolute;
+    
+
+    &:after {
+        $space: 8px;
+        position: absolute;
+        top: -$space;
+        bottom: -$space;
+        left: -$space;
+        right: -$space;
+        content: '';
+    }
+
+    &.visual-editor-block-focus {
+        border: 1px dashed $primary;
+    }
 }

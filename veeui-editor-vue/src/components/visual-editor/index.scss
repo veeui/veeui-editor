@@ -1,14 +1,4 @@
-$headSize: 60px;
-$menuSize: 275px;
-$operatorSize: 275px;
-
-$ibc: #dcdfe6;
-$ibl: #ebeef5;
-$itc: #314659;
-$icc: rgba(0, 0, 0, .45);
-$boxShadowColor: #f0f1f2;
-
-$primary: #e7218f;
+@import '../index.scss';
 
 .visual-editor {
     position: fixed;

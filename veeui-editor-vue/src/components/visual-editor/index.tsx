@@ -1,6 +1,6 @@
 import { computed, defineComponent, PropType, ref } from 'vue';
-import { VisualEditorComponent, VisualEditorModelValue } from '@/components/index.d.ts';
-import { VisualConfig } from '@/components/index.utils';
+import { VisualEditorBlockData, VisualEditorComponent, VisualEditorModelValue } from '@/components/index.d.ts';
+import { VisualConfig, createVisualBlock } from '@/components/index.utils';
 import useModel from '@/utils/useModel';
 import './index.scss';
 import { VisualEditorBlock } from '@/components';
@@ -27,6 +27,18 @@ const VisualEditor = defineComponent({
             width: `${dataModel.value.container.width}px`,
             height: `${dataModel.value.container.height}px`
         }));
+
+        const methods = {
+            clearFocus: ( block ?: VisualEditorBlockData ) => {
+                let blocks = dataModel.value.blocks || [];
+
+                if(blocks.length === 0) return;
+
+                if(!!block) blocks = blocks.filter(item => item !== block)
+
+                blocks.forEach(block => block.focus = false)
+            }
+        }
 
         const menuDragger = {
             current: {
@@ -58,11 +70,34 @@ const VisualEditor = defineComponent({
             drop: (e: DragEvent) => {
                 console.log('drop', menuDragger.current.component);
                 const blocks = dataModel.value.blocks || [];
-                blocks.push({
+                blocks.push(createVisualBlock({
+                    component: menuDragger.current.component!,
                     top: e.offsetY,
-                    left: e.offsetX,
-                    componentKey: menuDragger.current.component!.key
-                })
+                    left: e.offsetX
+                }));
+                dataModel.value = {...dataModel.value, blocks}
+            }
+        };
+
+        const containerFocus = {
+            mouseDown: (e: MouseEvent) => {
+                console.log('container mousedown')
+                e.stopPropagation();
+                e.preventDefault();
+                methods.clearFocus()
+            }
+        };
+
+        const blockFocus = {
+            mouseDown: (e: MouseEvent, block: VisualEditorBlockData) => {
+                e.stopPropagation();
+                e.preventDefault();
+                if(e.shiftKey) {
+                    block.focus = !block.focus;
+                } else {
+                    block.focus = true;
+                    methods.clearFocus(block)
+                }
             }
         }
 
@@ -88,10 +123,22 @@ const VisualEditor = defineComponent({
                 </div>
                 <div class="visual-editor-body">
                     <div class="visual-editor-content">
-                      <div class="visual-editor-container" ref={containerRef} style={containerStyles.value}>
+                      <div 
+                        class="visual-editor-container" 
+                        ref={containerRef} 
+                        style={containerStyles.value}
+                        onMousedown={containerFocus.mouseDown}
+                      >
                           {!!dataModel.value.blocks && (
                               dataModel.value.blocks.map((block, index) => (
-                                <VisualEditorBlock config={props.config} block={block} key={index} />
+                                <VisualEditorBlock 
+                                    config={props.config} 
+                                    block={block} 
+                                    key={index}
+                                    {...{
+                                        onMouseDown: (e: MouseEvent) => blockFocus.mouseDown(e, block)
+                                    }} 
+                                />
                               ))
                           )}
                       </div>
