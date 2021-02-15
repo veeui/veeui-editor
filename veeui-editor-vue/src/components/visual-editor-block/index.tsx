@@ -1,11 +1,16 @@
 import { computed, defineComponent, PropType } from "vue";
 import './index.scss';
-import { VisualEditorBlockData } from '@/components/index.d.ts'
+import { VisualEditorBlockData } from '@/components/index.d.ts';
+import { VisualConfig } from '../index.utils';
 
 const VisualEditorBlock = defineComponent({
     props: {
         block: {
             type: Object as PropType<VisualEditorBlockData>, 
+            required: true
+        },
+        config: {
+            type: Object as PropType<VisualConfig>,
             required: true
         }
     },
@@ -14,11 +19,15 @@ const VisualEditorBlock = defineComponent({
             top: `${props.block.top}px`,
             left: `${props.block.left}px`
         }))
-        return () => (
-            <div class="visual-editor-block" style={styles.value}>
-                这是一条block
-            </div>
-        )
+        return () => {
+            const component = props.config.componentMap[props.block.componentKey];
+            const Render = component.render();
+            return (
+                <div class="visual-editor-block" style={styles.value}>
+                    {Render}
+                </div>
+            )
+        }
     }
 });
 
